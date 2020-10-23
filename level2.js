@@ -172,7 +172,6 @@ function move() {
 	yHealthMinus = 700;
 	yManaPlus = 700;
 	 moveBg();
-	 forward();
 	} else if (event.code == 'ArrowRight' && xPos > 300) {
 	xFire = xPos -= 0;
 	yHealthPlus = 700;
@@ -492,7 +491,23 @@ context.drawImage(bg, xBg, yBg);
  barrelCrushesSound.play();
  yBarrelD = 600;
  yGoblin = 100;
+ }	else if(xFire + fireball.width >= xBarrelE
+ && xFire < xBarrelE
+ && yFire + fireball.height >= yBarrelE && yFire <= yBarrelE + barrelE.width && yBarrelE <= 599
+ ) {
+ barrelCrushesSound.play();
+ yBarrelE = 600;
+yPotionDeath = 300;
+ }		else if(xFire + fireball.width >= xBarrelF
+ && xFire < xBarrelF
+ && yFire + fireball.height >= yBarrelF && yFire <= yBarrelF + barrelF.width && yBarrelF <= 599
+ ) {
+ barrelCrushesSound.play();
+ yBarrelF = 600;
+ xGoblin = xBarrelF;
+ yGoblin = 100;
  }		
+
 enemyMove();
 context.drawImage(heartA, 650, yLifeA);
 context.drawImage(heartB, 580, yLifeB);
