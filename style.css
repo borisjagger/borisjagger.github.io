@@ -1,0 +1,108 @@
+.body {
+width: 720px;
+height: 390px;
+background-image: url('img/bg1.gif');
+padding: 0px 0px 0px 0px;
+margin: 0px 0px 0px 0px;
+}
+
+.frame {
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+}
+
+.scorePanel {
+width: 720px;
+height: 20px;
+background-image: url('img/bg1.gif');
+color: White;
+padding-top: 0px;
+}
+
+.score, .ammo {
+color: White;
+display: inline-block;	
+}
+
+ .heroCard {
+color: White;
+display: inline-block;	
+margin: 0px 120px 0px 120px;
+}
+
+.fireballIcon {
+	width: 19px;
+	height: 19px;
+	display: inline-block;	
+	margin-left: 5px;
+}
+
+.levelCardField {
+color: White;
+display: inline-block;
+width: 238px;	
+background-image: url('img/bg.jpg');
+height: 390px;
+border: 0px;
+margin: 0px 0px 0px 0px;
+padding: 0px 0px 0px 0px;
+}
+
+.levelCardDungeon {
+color: White;
+display: inline-block;
+width: 238px;	
+background-image: url('img/bg-dungeon.jpg');
+height: 390px;
+border: 0px;
+margin: 0px 0px 0px 0px;
+padding: 0px 0px 0px 0px;
+}
+
+.levelCardHell {
+color: White;
+display: inline-block;
+width: 238px;	
+background-image: url('img/hell.jpg');
+height: 390px;
+border: 0px;
+margin: 0px 0px 0px 0px;
+padding: 0px 0px 0px 0px;
+}
+
+.play {
+	margin-top: 0px;
+	margin-left: 170px;
+}
+
+.myCanvas {
+	margin-top: 0px;
+	margin-left: 0px;
+}
+
+.exit {
+display: inline-block;		
+width: 50px;
+height: 20px;
+margin-top: 0px;
+margin-left: 260px;
+}
+
+.nextlevel {
+display: inline-block;		
+width: 80px;
+height: 20px;
+margin-top: 0px;
+margin-left: 175px;
+}
+
+.logoChoose {
+	margin: 0px 65px 0px 65px;
+}
+
+.exitChoose {
+	margin: 0px 310px 0px 310px;
+	width: 10%;
+	height: 10%;
+	margin-top: 30px;
+}
