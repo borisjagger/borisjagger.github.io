@@ -275,7 +275,7 @@ winSound.play();
 yVictory = 100;
 yPos = -200;
 yFire = -200;
-document.querySelector('.nextlevelSrc').href = 'level2_archer.js';
+document.querySelector('.nextlevelSrc').href = 'level2_archer.html';
 }
 }
 
