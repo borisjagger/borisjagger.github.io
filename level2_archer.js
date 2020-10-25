@@ -303,7 +303,7 @@ winSound.play();
 yVictory = 100;
 yPos = -200;
 yFire = -200;
-document.querySelector('.nextlevelSrc').href = 'file:///C:/Users/borian/Documents/JavaScript/Wizard%20Adventure/start.html';
+document.querySelector('.nextlevelSrc').href = 'start.html';
 }
 }
 
