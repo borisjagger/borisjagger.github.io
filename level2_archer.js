@@ -49,7 +49,7 @@ var bossSound = new Audio();
 
 //images
 bg.src = "img/bg2.png";
-wizard.src = 'img/wizard.png';
+wizard.src = 'img/archer.png';
 goblin.src = 'img/mummy.png';
 ogre.src = 'img/mummy.png';
 ogreA.src = 'img/mummy.png';
@@ -58,7 +58,7 @@ boss.src = 'img/dragon.png';
 heartA.src = 'img/heartA.png';
 heartB.src = 'img/heartB.png';
 heartC.src = 'img/heartC.png';
-fireball.src = 'img/fireballpng.png';
+fireball.src = 'img/arrow.png';
 gameover.src = 'img/gameover.png';
 victory.src = 'img/victory.png';
 bossHeartA.src = 'img/bosshealth1.png';
@@ -66,11 +66,11 @@ bossHeartB.src = 'img/bosshealth2.png';
 bossHeartC.src = 'img/bosshealth3.png';
 bossHeartD.src = 'img/bosshealth4.png';
 potionHealth.src = 'img/potion.png';
-potionMana.src = 'img/potion_mana.png';
+potionMana.src = 'img/quiver.png';
 potionDeath.src = 'img/potion_death.png';
 healthPlus.src = 'img/health_plus.png';
 healthMinus.src = 'img/health_minus.png';
-manaPlus.src = 'img/mana_plus.png';
+manaPlus.src = 'img/arrow_plus.png';
 barrelA.src = 'img/sarcophagus.png';
 barrelB.src = 'img/sarcophagus.png';
 barrelC.src = 'img/sarcophagus.png';
@@ -103,7 +103,7 @@ var yPos = 170;
 var grav = 10;
 var minus = 0;
 var xFire = 20;
-var yFire = 170;
+var yFire = 155;
 var yLifeA = 10;
 var yLifeB = 10;
 var yLifeC = 10;
@@ -179,9 +179,11 @@ function move() {
 	yManaPlus = 700;
 	 moveBg();
 	} else if (event.code == 'ArrowUp' && yPos >= 12) {
-	yFire = yPos -= 20;
+	yPos -= 20;
+	yFire = yPos - 15;
 	} else if (event.code == 'ArrowDown' && yPos <= 340) {
-	yFire = yPos += 20;
+	yPos += 20;
+	yFire = yPos - 15;
 	} else if (event.code == 'Space' && xFire >= xPos) {
 		fireballStart();
 		xFire = xPos + 10;
