@@ -96,7 +96,7 @@ bossSound.src = 'sound/boss.wav';
 //Расположение объектов
 var gap = 10;
 var shot = 17;
-var speed = 7000;
+var speed = 12000;
 
 var xPos = 20;
 var yPos = 170;
