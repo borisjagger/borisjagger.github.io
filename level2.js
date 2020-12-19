@@ -8,11 +8,13 @@ var goblin = new Image();
 var ogre = new Image();
 var ogreA = new Image();
 var ogreB = new Image();
+var ogreC = new Image();
 var boss = new Image();
 var heartA = new Image();
 var heartB = new Image();
 var heartC = new Image();
 var fireball = new Image();
+var fireballBoss = new Image();
 var gameover = new Image();
 var victory = new Image();
 var bossHeartA = new Image();
@@ -54,11 +56,13 @@ goblin.src = 'img/mummy.png';
 ogre.src = 'img/mummy.png';
 ogreA.src = 'img/mummy.png';
 ogreB.src = 'img/mummy.png';
+ogreC.src = 'img/mummy.png';
 boss.src = 'img/dragon.png';
 heartA.src = 'img/heartA.png';
 heartB.src = 'img/heartB.png';
 heartC.src = 'img/heartC.png';
 fireball.src = 'img/fireballpng.png';
+fireballBoss.src = 'img/fireballpng.png';
 gameover.src = 'img/gameover.png';
 victory.src = 'img/victory.png';
 bossHeartA.src = 'img/bosshealth1.png';
@@ -93,17 +97,23 @@ heroMinusLife.src = 'sound/hero_minus_life.mp3';
 enemyAppearSound.src = 'sound/enemy_move.wav';
 bossSound.src = 'sound/boss.wav';
 
-//Расположение объектов
+//Control panel
 var gap = 10;
 var shot = 17;
-var speed = 14000;
+var speed = 7000;
+var step = 20;
+//--------------
 
 var xPos = 20;
 var yPos = 170;
 var grav = 10;
 var minus = 0;
+var gravBoss = 10;
+var minusBoss = 0;
 var xFire = 20;
 var yFire = 170;
+var xFireBoss = 2500;
+var yFireBoss = 108;
 var yLifeA = 10;
 var yLifeB = 10;
 var yLifeC = 10;
@@ -112,15 +122,17 @@ var yVictory = 600;
 let score = 0;
 let health = 3;
 let bossHealth = 3;
-let xOgre = 1000;
+let xOgre = 1900;
 let yOgre = 300;
 let xOgreA = 800;
 let yOgreA = 200;
 let xOgreB = 900;
 let yOgreB = 50;
+let xOgreC = 2200;
+let yOgreC = 90;
 let xGoblin = 850;
 let yGoblin = 600;
-let xBoss = 2900;
+let xBoss = 2500;
 let yBoss = 50;
 let xBg = 0;
 let yBg = 0;
@@ -167,7 +179,7 @@ document.addEventListener('keydown', move);
 function move() {
 	ambienceSound.play();
 	if (event.code == 'ArrowRight' && xPos <= 300) {
-	xFire = xPos += 20;
+	xFire = xPos += step;
 	yHealthPlus = 700;
 	yHealthMinus = 700;
 	yManaPlus = 700;
@@ -179,16 +191,16 @@ function move() {
 	yManaPlus = 700;
 	 moveBg();
 	} else if (event.code == 'ArrowUp' && yPos >= 12) {
-	yFire = yPos -= 20;
+	yFire = yPos -= step;
 	} else if (event.code == 'ArrowDown' && yPos <= 340) {
-	yFire = yPos += 20;
+	yFire = yPos += step;
 	} else if (event.code == 'Space' && xFire >= xPos) {
 		fireballStart();
 		xFire = xPos + 10;
 		shot -= 1;
 	} else if (event.code == 'ArrowLeft' && xPos > 0) {
-	xFire = xPos -= 20;	
-	}
+	xFire = xPos -= step;	
+	} 
 };
 
 function fireballStart() {
@@ -206,6 +218,7 @@ function enemyMove() {
 	 context.drawImage(ogre, xOgre, yOgre);
 	 context.drawImage(ogreA, xOgreA, yOgreA);
 	 context.drawImage(ogreB, xOgreB, yOgreB);
+	 context.drawImage(ogreC, xOgreC, yOgreC);
 	 context.drawImage(goblin, xGoblin, yGoblin);
 	 context.drawImage(boss, xBoss, yBoss);
 	 context.drawImage(bossHeartA, xBossHeartA, yBossHeartA);
@@ -250,19 +263,33 @@ enemyAppear();
 	yOgreB -= (yOgreB - yPos)/speed
 	xOgreB -= (xOgreB - xPos)/speed
 	} 
-if (xBoss - xPos <= 500  && xBoss >= xPos && yBoss == yPos) {
-	xBoss -= (xBoss - xPos)/(speed + 4000);
+	if (xOgreC - xPos <= 500  && xOgreC >= xPos && yOgreC == yPos) {
+	xOgreC -= (xOgreC - xPos)/speed
+	} else if (xOgreC - xPos <= 700  && xOgreC >= xPos && yOgreC > yPos && yOgreC < 600) {
+	yOgreC -= (yOgreC - yPos)/speed	
+	xOgreC -= (xOgreC - xPos)/speed
+	} else if (xOgreC - xPos <= 700  && xOgreC >= xPos && yOgreC < yPos) {
+	yOgreC -= (yOgreC - yPos)/speed
+	xOgreC -= (xOgreC - xPos)/speed
+	} 
+if  (xBoss - xPos <= 700  && xBoss >= xPos && yBoss !== 1000) {
+	yBoss -= ((yBoss + 58) - yPos)/(speed);	
 	yBossHeartA = 350;
-	} else if (xBoss - xPos <= 700 && xBoss >= xPos && yBoss > yPos && yBoss < 600) {
-	yBoss -= (yBoss - yPos)/(speed + 4000);	
-	xBoss -= (xBoss - xPos)/(speed + 4000);
-	yBossHeartA = 350;
-	} else if (xBoss - xPos <= 700  && xBoss >= xPos && yBoss < yPos) {
-	yBoss -= (yBoss - yPos)/(speed + 4000);	
-	xBoss -= (xBoss - xPos)/(speed + 4000);
-	yBossHeartA = 350;
+	bossFire();
 	}
+}
 
+function bossFire() {
+	if (yPos > yBoss && yPos < yBoss + 128 && xFireBoss > 20){
+	xFireBoss -= grav / 200;
+	fireballSound.play();
+	} else if (xFireBoss <= 10) {
+	xFireBoss = xBoss;
+		yFireBoss = yBoss + 58;	
+	} else {
+		xFireBoss = xBoss;
+		yFireBoss = yBoss + 58;
+	} 
 }
 
 function enemyAppear() {
@@ -274,20 +301,23 @@ function enemyAppear() {
 
  function moveBg() {
  if (xPos >= 100 && xBg >= - 1900) {
-	xBg -= 20; 
-	xBarrelA -= 20;
-	xBarrelB -= 20;
-	xBarrelC -= 20;
-	xBarrelD -= 20;
-	xBarrelE -= 20;
-	xBarrelF -= 20;
-	xBarrelG -= 20;
-	xBarrelH -= 20;
-	xPotionHealth -= 20;
-	xPotionMana -= 20;
-	xPotionDeath -= 20;
-	xGoblin -= 20;
-	xBoss -= 20;
+	xBg -= step; 
+	xBarrelA -= step;
+	xBarrelB -= step;
+	xBarrelC -= step;
+	xBarrelD -= step;
+	xBarrelE -= step;
+	xBarrelF -= step;
+	xBarrelG -= step;
+	xBarrelH -= step;
+	xPotionHealth -= step;
+	xPotionMana -= step;
+	xPotionDeath -= step;
+	xGoblin -= step;
+	xBoss -= step;
+	xFireBoss -= step;
+	xOgreC -= step;
+	xOgre -= step;
  } 
  }
  
@@ -301,7 +331,7 @@ winSound.play();
 yVictory = 100;
 yPos = -200;
 yFire = -200;
-document.querySelector('.nextlevelSrc').href = 'start.html';
+document.querySelector('.nextlevelSrc').href = 'file:///C:/Users/borian/Documents/JavaScript/Wizard%20Adventure/start.html';
 }
 }
 
@@ -385,10 +415,20 @@ function touchControl() {
  health = health - 1;
  yOgreA = 600;
  healthCheck();
+ } else if(xPos + wizard.width >= xFireBoss && yPos + wizard.height >= yFireBoss && yPos <= yFireBoss  + fireballBoss.height && xPos <= xFireBoss + fireballBoss.width
+ ) {
+ health = health - 1;
+ xFireBoss = xBoss;
+ healthCheck();
  } else if(xPos + wizard.width >= xOgreB && yPos + wizard.height >= yOgreB && yPos <= yOgreB  + ogreB.height && xPos <= xOgreB + ogreB.width
  ) {
  health = health - 1;
  yOgreB = 600;
+ healthCheck();
+ } else if(xPos + wizard.width >= xOgreC && yPos + wizard.height >= yOgreC && yPos <= yOgreC  + ogreC.height && xPos <= xOgreC + ogreC.width
+ ) {
+ health = health - 1;
+ yOgreC = 600;
  healthCheck();
  } else if (xPos + wizard.width >= xBoss && yPos + wizard.height >= yBoss && yPos <= yBoss  + boss.height && xPos <= xBoss + boss.width
  ) {
@@ -452,6 +492,14 @@ context.drawImage(bg, xBg, yBg);
  && yFire + fireball.height >= yOgreB && yFire <= yOgreB + ogreB.width && yOgreB <= 599
  ) {
  yOgreB = 600;
+ scoreAdd();
+ win();
+ enemyDies.play();
+ } else if(xFire + fireball.width >= xOgreC
+ && xFire < xOgreC 
+ && yFire + fireball.height >= yOgreC && yFire <= yOgreC + ogreC.width && yOgreC <= 599
+ ) {
+ yOgreC = 600;
  scoreAdd();
  win();
  enemyDies.play();
@@ -561,6 +609,7 @@ context.drawImage(manaPlus, xManaPlus, yManaPlus);
 //context.drawImage(barrelBrokenA, xBarrelBrokenA, yBarrelBrokenA);
 context.drawImage(wizard, xPos, yPos);
 context.drawImage(fireball, xFire, yFire);
+context.drawImage(fireballBoss, xFireBoss, yFireBoss);
 context.drawImage(gameover, 50, yGameOver);
 context.drawImage(victory, 150, yVictory);
 requestAnimationFrame(draw);
